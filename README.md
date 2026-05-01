@@ -48,3 +48,4 @@ Behavior:
 - Installs dependencies with `npm install` (no lockfile requirement).
 - Builds with `npm run build`.
 - Uploads `dist/` and deploys using `actions/deploy-pages@v4`.
+
