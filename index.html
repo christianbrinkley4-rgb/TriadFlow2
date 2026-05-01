@@ -3,110 +3,70 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Personal Financial Command Center</title>
+    <title>2026 Financial Command Center</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/src/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              navy: '#0A192F',
+              slateGlass: 'rgba(148,163,184,.16)',
+              success: '#10B981'
+            }
+          }
+        }
+      };
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/13.0.3/math.min.js" defer></script>
+    <link rel="stylesheet" href="/src/styles.css" />
     <script type="module" src="/src/main.js"></script>
   </head>
-  <body>
-    <div class="app-shell">
-      <header class="hero">
-        <div>
-          <p class="eyebrow">Personal Financial Command Center</p>
-          <h1>Institutional-Grade Financial Foresight</h1>
-          <p class="subtitle">
-            Interactive, real-time planning engine for taxes, retirement growth, and fee drag.
-          </p>
-        </div>
+  <body class="bg-navy text-white min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 md:px-8 py-8 space-y-6">
+      <header class="glass-card p-6 md:p-8">
+        <p class="text-sm uppercase tracking-[0.2em] text-emerald-300">2026 Financial Command Center</p>
+        <h1 class="text-2xl md:text-4xl font-extrabold mt-3">Custom Financial Integrity Audit for <span id="cityName">Piedmont Triad</span> Households</h1>
       </header>
 
-      <main class="dashboard-grid">
-        <section class="panel" id="tax-drag-panel">
-          <h2>The 2026 Tax Drag Engine</h2>
-          <div class="panel-grid">
-            <div class="controls">
-              <label>Current Income
-                <input type="number" id="income" min="10000" step="1000" value="120000" />
-              </label>
-              <label>Filing Status
-                <select id="filingStatus">
-                  <option value="single">Single</option>
-                  <option value="married">Married Filing Jointly</option>
-                </select>
-              </label>
-              <label>Total Pre-Tax Retirement Assets: <span id="retirementAssetsValue"></span>
-                <input type="range" id="retirementAssets" min="0" max="3000000" step="10000" value="350000" />
-              </label>
-            </div>
-            <div class="viz">
-              <canvas id="taxChart"></canvas>
-              <p class="metric">Estimated Dollar Penalty: <strong id="taxPenalty">$0</strong></p>
-            </div>
+      <main class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+        <section class="glass-card p-6 space-y-4">
+          <h2 class="text-xl font-bold">2026 Tax Sunset Stress Test</h2>
+          <div class="grid md:grid-cols-2 gap-4">
+            <label class="field">Annual Income <input id="taxIncome" type="number" value="280000" min="25000" step="5000"></label>
+            <label class="field">Years to Project <input id="taxYears" type="range" min="5" max="20" value="10"><span id="taxYearsLabel"></span></label>
           </div>
+          <canvas id="taxChart" height="160"></canvas>
         </section>
 
-        <section class="panel" id="trajectory-panel">
-          <h2>Wealth Trajectory &amp; Sequencing Visualizer</h2>
-          <div class="panel-grid">
-            <div class="controls">
-              <label>Current Age
-                <input type="number" id="currentAge" min="18" max="70" value="32" />
-              </label>
-              <label>Target Retirement Age
-                <input type="number" id="retireAge" min="40" max="85" value="65" />
-              </label>
-              <label>Current Savings: <span id="currentSavingsValue"></span>
-                <input type="range" id="currentSavings" min="0" max="2500000" step="5000" value="125000" />
-              </label>
-              <label>Monthly Contribution: <span id="monthlyContributionValue"></span>
-                <input type="range" id="monthlyContribution" min="0" max="10000" step="50" value="1200" />
-              </label>
-              <label>Estimated Annual Return: <span id="annualReturnValue"></span>
-                <input type="range" id="annualReturn" min="3" max="12" step="0.1" value="7" />
-              </label>
-              <label class="toggle">
-                <input type="checkbox" id="inflationToggle" />
-                <span>Show Inflation Adjusted Power (3%)</span>
-              </label>
-            </div>
-            <div class="viz">
-              <canvas id="trajectoryChart"></canvas>
-            </div>
+        <section class="glass-card p-6 space-y-4">
+          <h2 class="text-xl font-bold">Monte Carlo Retirement Longevity</h2>
+          <div class="grid md:grid-cols-2 gap-4">
+            <label class="field">Current Assets <input id="mcAssets" type="number" value="1500000" step="10000"></label>
+            <label class="field">Withdrawal Rate (%) <input id="mcWithdraw" type="range" min="2" max="8" step="0.1" value="4"><span id="mcWithdrawLabel"></span></label>
+            <label class="field">Years in Retirement <input id="mcYears" type="range" min="15" max="40" value="30"><span id="mcYearsLabel"></span></label>
           </div>
+          <div class="text-lg">Probability of Success: <strong id="successPct" class="text-emerald-400"></strong></div>
+          <canvas id="monteChart" height="160"></canvas>
         </section>
 
-        <section class="panel" id="fees-panel">
-          <h2>The Hidden Fees Burn Rate Calculator</h2>
-          <div class="panel-grid">
-            <div class="controls">
-              <label>Total Portfolio Value
-                <input type="number" id="portfolioValue" min="1000" step="1000" value="500000" />
-              </label>
-              <label>Current Advisor/Fund Fee %: <span id="feeRateValue"></span>
-                <input type="range" id="feeRate" min="0.5" max="3" step="0.1" value="1.5" />
-              </label>
-            </div>
-            <div class="viz">
-              <canvas id="feesChart"></canvas>
-              <p class="metric">Projected 20-Year Wealth Lost: <strong id="feesLost">$0</strong></p>
-            </div>
+        <section class="glass-card p-6 space-y-4 xl:col-span-2">
+          <h2 class="text-xl font-bold">Institutional Fee Audit</h2>
+          <div class="grid md:grid-cols-3 gap-4 items-center">
+            <label class="field">Portfolio Value <input id="feeAssets" type="number" value="2000000" step="10000"></label>
+            <label class="field">Legacy Fee (%) <input id="legacyFee" type="range" min="0.7" max="2" step="0.1" value="1"><span id="legacyFeeLabel"></span></label>
+            <label class="field">Fiduciary Fee (%) <input id="fidFee" type="range" min="0.1" max="1" step="0.05" value="0.35"><span id="fidFeeLabel"></span></label>
+          </div>
+          <div class="grid md:grid-cols-2 gap-6 items-center">
+            <canvas id="feeChart" height="160"></canvas>
+            <div class="callout">Opportunity Cost Over 30 Years<br><span id="oppCost"></span></div>
           </div>
         </section>
       </main>
-
-      <footer class="about-engine">
-        <h3>About the Engine</h3>
-        <p>
-          Engineered by a first-generation Accelerated Master's in Accounting student dedicated to bringing
-          transparent, institutional-grade financial math to hardworking households in the Piedmont Triad.
-        </p>
-      </footer>
     </div>
   </body>
 </html>
