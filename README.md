@@ -45,6 +45,7 @@ Workflow file: `.github/workflows/deploy.yml`.
 Behavior:
 - Triggers on pushes to `main`.
 - Uses Ubuntu runner.
-- Installs dependencies with `npm ci`.
+- Installs dependencies with `npm install` (no lockfile requirement).
 - Builds with `npm run build`.
 - Uploads `dist/` and deploys using `actions/deploy-pages@v4`.
+
